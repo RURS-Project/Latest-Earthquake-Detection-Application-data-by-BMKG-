@@ -1,0 +1,1 @@
+# Latest-Earthquake-Detection-Application-data-by-BMKG-
