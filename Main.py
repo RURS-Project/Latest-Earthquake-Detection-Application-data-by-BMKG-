@@ -2,7 +2,7 @@
 Latest Earthquake Detection Application
 MODULARIZATION WITH FUNCTION
 MODULARIZATION WITH PACKAGE
-44 7.13
+44 7.13 Minutes
 """
 import Latest_Earthquake_Detection
 
