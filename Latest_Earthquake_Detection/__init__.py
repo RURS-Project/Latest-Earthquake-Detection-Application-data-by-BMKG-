@@ -19,11 +19,12 @@ def extraction_data():
 
     if content.status_code == 200:
         print(content.text)
-        # soup = BeautifulSoup(content)
-        # print(soup.prettify())
+        soup = BeautifulSoup(content.text, 'html.parser')
+        tanggal = soup.find('span', {'class': 'waktu'})
+
 
         hasil = dict()
-        hasil['tanggal'] = '22 Desember 2022, 04:18:28 WIB'
+        hasil['tanggal'] = tanggal  #'22 Desember 2022, 04:18:28 WIB'
         hasil['Magnitudo'] = '3.8'
         hasil['Kedalaman'] = '5 km'
         hasil['Lokasi'] = {'ls' : 6.99, 'bt' : 108.48}

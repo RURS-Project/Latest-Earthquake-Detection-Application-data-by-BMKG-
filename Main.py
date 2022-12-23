@@ -2,6 +2,7 @@
 Latest Earthquake Detection Application
 MODULARIZATION WITH FUNCTION
 MODULARIZATION WITH PACKAGE
+44 7.13
 """
 import Latest_Earthquake_Detection
 
