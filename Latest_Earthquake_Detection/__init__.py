@@ -20,11 +20,15 @@ def extraction_data():
     if content.status_code == 200:
         print(content.text)
         soup = BeautifulSoup(content.text, 'html.parser')
-        tanggal = soup.find('span', {'class': 'waktu'})
+        result = soup.find('span', {'class': 'waktu'})
+        re
+        waktu = result.text.split(', ')[1]
+        tanggal = result.text.split(', ')[0]
 
 
         hasil = dict()
-        hasil['tanggal'] = tanggal  #'22 Desember 2022, 04:18:28 WIB'
+        hasil['tanggal'] = tanggal  #'22 Desember 2022,
+        hasil['waktu'] = waktu # 04:18:28 WIB'
         hasil['Magnitudo'] = '3.8'
         hasil['Kedalaman'] = '5 km'
         hasil['Lokasi'] = {'ls' : 6.99, 'bt' : 108.48}
@@ -40,6 +44,7 @@ def show_data(result):
         return
     print('Latest Earthquake by BMKG')
     print(f"Tanggal : {result['tanggal']}")
+    print(f"Waktu : {result['waktu']}")
     print(f"Magnitudo : {result['Magnitudo']}")
     print(f"Lokasi : LS= {result['Lokasi']['ls']}, BT= {result['Lokasi']['bt']}")
     print(f"Pusat : {result['Pusat']}")
