@@ -20,20 +20,45 @@ def extraction_data():
     if content.status_code == 200:
         print(content.text)
         soup = BeautifulSoup(content.text, 'html.parser')
-        result = soup.find('span', {'class': 'waktu'})
-        re
-        waktu = result.text.split(', ')[1]
-        tanggal = result.text.split(', ')[0]
 
+        result = soup.find('span', {'class': 'waktu'})
+        result = result.text.split(', ')
+        tanggal = result[0]
+        waktu = result[1]
+
+        result = soup.find('div', {'class': 'col-md-6 col-xs-6 gempabumi-detail no-padding'})
+        result = result.findChildren('li')
+        i = 0
+        magnitudo = None
+        kedalaman = None
+        ls = None
+        bt = None
+        lokasi = None
+        dirasakan = None
+        for res in result:
+            print(i, res)
+            if i == 1:
+                magnitudo = res.text
+            elif i == 2:
+                kedalaman = res.text
+            elif i == 3:
+                koordinat = res.text.split(' - ')
+                ls = koordinat[0]
+                bt = koordinat[1]
+            elif i == 4:
+                lokasi = res.text
+            elif i == 5:
+                dirasakan = res.text
+            i = i + 1
 
         hasil = dict()
-        hasil['tanggal'] = tanggal  #'22 Desember 2022,
-        hasil['waktu'] = waktu # 04:18:28 WIB'
-        hasil['Magnitudo'] = '3.8'
-        hasil['Kedalaman'] = '5 km'
-        hasil['Lokasi'] = {'ls' : 6.99, 'bt' : 108.48}
-        hasil['Pusat'] = 'Pusat gempa berada di darat 1 km BaratDaya Kab. Kuningan'
-        hasil['Dirasakan'] = 'Dirasakan (Skala MMI): III Kuningan, II - III Cirebon, II - III Majalengka'
+        hasil['tanggal'] = tanggal
+        hasil['waktu'] = waktu
+        hasil['Magnitudo'] = magnitudo
+        hasil['Kedalaman'] = kedalaman
+        hasil['Koordinat'] = {'ls' : ls, 'bt' : bt}
+        hasil['Lokasi'] = lokasi
+        hasil['Dirasakan'] = dirasakan
         return hasil
     else:
         return None
@@ -46,6 +71,7 @@ def show_data(result):
     print(f"Tanggal : {result['tanggal']}")
     print(f"Waktu : {result['waktu']}")
     print(f"Magnitudo : {result['Magnitudo']}")
-    print(f"Lokasi : LS= {result['Lokasi']['ls']}, BT= {result['Lokasi']['bt']}")
-    print(f"Pusat : {result['Pusat']}")
+    print(f"Kedalaman : {result['Kedalaman']}")
+    print(f"Koordinat : {result['Koordinat']['ls']}, {result['Koordinat']['bt']}")
+    print(f"Lokasi : {result['Lokasi']}")
     print(f"Dirasakan : {result['Dirasakan']}")
